@@ -123,7 +123,7 @@ public class LoginPlayer extends javax.swing.JFrame {
         MyConnection conn = new MyConnection();
         ResultSet rs;
         PreparedStatement ps;
-        String queryCheckAccount = "Select Count(*) from Players where PlayerUsername = ? and PlayerPassword = ?";
+        String queryCheckAccount = "Select * from Players where PlayerUsername = ? and PlayerPassword = ?";
         String playerUsername = txtUsername.getText();
         String playerPassword = String.valueOf(txtPassword.getText());
         try {
@@ -131,19 +131,23 @@ public class LoginPlayer extends javax.swing.JFrame {
             ps.setString(1, playerUsername);
             ps.setString(2, playerPassword);
             rs = ps.executeQuery();
-            rs.next();
-            int count = rs.getInt(1);
+            if(rs.next())
+            {
+                int playerIdRs = rs.getInt("PlayerId");
+                String playerUsernameRs = rs.getString("PlayerUsername");
             
-            if(count > 0)
-            {
-                JOptionPane.showMessageDialog(this, "Login success! ");
-                new Game();
-                this.dispose();
-                
+                    JOptionPane.showMessageDialog(this, "Login success! ");
+                    MenuGame mnGame = new MenuGame("Hello "+playerUsernameRs,playerIdRs);
+                    mnGame.pack();
+                    mnGame.setLocationRelativeTo(null);
+                    mnGame.show();
+//                  new Game();
+                    this.dispose();
             }else
-            {
-                JOptionPane.showMessageDialog(this, "account or password is incorrect");
-            }
+                {
+                    JOptionPane.showMessageDialog(this, "account or password is incorrect");
+                }
+            
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: "+e);
         }
