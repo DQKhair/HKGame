@@ -1,5 +1,6 @@
 package gamestates;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -14,15 +15,25 @@ public class Menu extends State implements Statemethods {
 	private MenuButton[] buttons = new MenuButton[4];
 	private BufferedImage backgroundImg, backgroundImgPink;
 	private int menuX, menuY, menuWidth, menuHeight;
+        private String namePlayer;
+        private Font font;
+
 
 	public Menu(Game game) {
 		super(game);
 		loadButtons();
 		loadBackground();
+                loadNamePlayer(game.getPlayerName());
 		backgroundImgPink = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
-
+                
 	}
-
+        
+        private void loadNamePlayer(String username)
+        {
+            font = new Font("Arial", Font.BOLD , 26);
+            namePlayer =  "Hello "+username;
+        }
+        
 	private void loadBackground() {
 		backgroundImg = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND);
 		menuWidth = (int) (backgroundImg.getWidth() * Game.SCALE);
@@ -48,6 +59,8 @@ public class Menu extends State implements Statemethods {
 	public void draw(Graphics g) {
 		g.drawImage(backgroundImgPink, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		g.drawImage(backgroundImg, menuX, menuY, menuWidth, menuHeight, null);
+                g.setFont(font); // Set font
+                g.drawString(namePlayer, Game.GAME_WIDTH / 2 - 50, 40);
 
 		for (MenuButton mb : buttons)
 			mb.draw(g);

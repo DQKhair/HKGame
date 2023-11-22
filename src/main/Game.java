@@ -33,6 +33,10 @@ public class Game implements Runnable {
 	public final static int GAME_HEIGHT = TILES_SIZE * TILES_IN_HEIGHT;
 
 	private final boolean SHOW_FPS_UPS = true;
+        
+        //add user and id
+        private String playername;
+        private int playerId;
 
 	public Game() {
 		System.out.println("size: " + GAME_WIDTH + " : " + GAME_HEIGHT);
@@ -42,6 +46,26 @@ public class Game implements Runnable {
 		gamePanel.requestFocusInWindow();
 		startGameLoop();
 	}
+        
+        public Game(int playerId,String playerName) {
+		this.playername = playerName;
+                this.playerId = playerId;
+                
+                System.out.println("size: " + GAME_WIDTH + " : " + GAME_HEIGHT);
+		initClasses();
+		gamePanel = new GamePanel(this);
+		new GameWindow(gamePanel);
+		gamePanel.requestFocusInWindow();
+		startGameLoop();
+	}
+        public String getPlayerName()
+        {
+            return playername;
+        }
+        public int getPlayerId()
+        {
+            return playerId;
+        }
 
 	private void initClasses() {
 		audioOptions = new AudioOptions(this);

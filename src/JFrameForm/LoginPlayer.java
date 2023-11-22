@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package JFrameForm;
+import gamestates.Menu;
 import java.sql.*;
 import javax.swing.JOptionPane;
 import main.Game;
@@ -137,11 +138,10 @@ public class LoginPlayer extends javax.swing.JFrame {
                 String playerUsernameRs = rs.getString("PlayerUsername");
             
                     JOptionPane.showMessageDialog(this, "Login success! ");
-                    MenuGame mnGame = new MenuGame("Hello "+playerUsernameRs,playerIdRs);
+                    MenuGame mnGame = new MenuGame(playerUsernameRs,playerIdRs);
                     mnGame.pack();
                     mnGame.setLocationRelativeTo(null);
                     mnGame.show();
-//                  new Game();
                     this.dispose();
             }else
                 {

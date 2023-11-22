@@ -13,6 +13,7 @@ import main.Game;
 public class MenuGame extends javax.swing.JFrame {
 
     private String playerUsername;
+    private int playerId;
     /**
      * Creates new form MenuGame
      */
@@ -21,7 +22,10 @@ public class MenuGame extends javax.swing.JFrame {
     }
     public MenuGame(String playerUsername,int playerId) {
         initComponents();
-        lbHelloName.setText(playerUsername);
+        this.playerUsername = playerUsername;
+        this.playerId = playerId;
+        
+        lbHelloName.setText("Hello "+playerUsername);
     }
 
     /**
@@ -43,19 +47,20 @@ public class MenuGame extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        bgHomeMenu = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home game");
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel2.setBackground(new java.awt.Color(153, 0, 51));
+        jPanel2.setBackground(new java.awt.Color(0, 0, 0));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lbHelloName.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
         lbHelloName.setForeground(new java.awt.Color(255, 255, 255));
-        lbHelloName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        lbHelloName.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         lbHelloName.setText("Hello name");
-        jPanel2.add(lbHelloName, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 10, 180, 30));
+        jPanel2.add(lbHelloName, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 180, 30));
 
         jLabel1.setFont(new java.awt.Font("SimSun", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -85,6 +90,7 @@ public class MenuGame extends javax.swing.JFrame {
         jPanel3.setBackground(new java.awt.Color(102, 0, 0));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -95,7 +101,10 @@ public class MenuGame extends javax.swing.JFrame {
 
         jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgJFrame/logoUser.png"))); // NOI18N
-        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 10, -1, -1));
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 10, -1, -1));
+
+        bgHomeMenu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/ImgJFrame/MenuHome.jpg"))); // NOI18N
+        jPanel2.add(bgHomeMenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(-20, 50, 920, 550));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 900, 560));
 
@@ -104,7 +113,8 @@ public class MenuGame extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
-                new Game();
+//        Game game = new Game()
+                new Game(playerId,playerUsername);
                 this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked
 
@@ -145,6 +155,7 @@ public class MenuGame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel bgHomeMenu;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
