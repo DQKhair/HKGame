@@ -48,10 +48,14 @@ public class Player extends Entity {
 	private int powerBarXStart = (int) (44 * Game.SCALE);
 	private int powerBarYStart = (int) (34 * Game.SCALE);
         
-        private int maxPointBarXStart = (int) (54 * Game.SCALE);
-	private int maxPointBarYStart = (int) (64 * Game.SCALE);
-        private int pointBarXStart = (int) (64 * Game.SCALE);
-	private int pointBarYStart = (int) (84 * Game.SCALE);
+//        private int maxPointBarXStart = (int) (54 * Game.SCALE);
+//	private int maxPointBarYStart = (int) (64 * Game.SCALE);
+//        private int pointBarXStart = (int) (64 * Game.SCALE);
+//	private int pointBarYStart = (int) (84 * Game.SCALE);
+         private int maxPointBarXStart = (int) (Game.GAME_WIDTH - 150 * Game.SCALE);
+	private int maxPointBarYStart = (int) (14 * Game.SCALE);
+        private int pointBarXStart = (int) (Game.GAME_WIDTH - 150 * Game.SCALE);
+	private int pointBarYStart = (int) (34 * Game.SCALE);
         
 	private int powerWidth = powerBarWidth;
 	private int powerMaxValue = 200;
@@ -81,8 +85,8 @@ public class Player extends Entity {
 		this.walkSpeed = Game.SCALE * 1.0f;
 		loadAnimations();
 		initHitbox(20, 27);
-		initAttackBox();
-                
+		initAttackBox(); 
+                PointPlayer.GetDBPlayerMaxPoint();
 	}
         
         
@@ -120,14 +124,17 @@ public class Player extends Entity {
                                 
                                 //handle lưu dữ liệu điểm khi chết
                                 System.out.println("Update point");
-                                //handle reset point = 0 và add max point point
-                                int maxPoint = PointPlayer.getPlayerMaxPoint();
+                                PointPlayer.GetDBPlayerMaxPoint();
+                                int pointMax = PointPlayer.getPlayerMaxPoint();
                                 int pointCurrent = PointPlayer.getPlayerPoint();
-                                if(pointCurrent>maxPoint)
+                                //handle reset point = 0 và add max point point
+                                
+                                if(pointCurrent>pointMax)
                                 {
-                                    PointPlayer.setPlayerMaxPoint(pointCurrent);
+                                    PointPlayer.PostPlayerMaxPoint();
                                 }
                                 PointPlayer.ResetPoint();
+                                PointPlayer.GetDBPlayerMaxPoint();
                                 //End handle lưu dữ liệu bản khi chết
                             
 				playing.setGameOver(true);
@@ -263,13 +270,14 @@ public class Player extends Entity {
 		g.fillRect(powerBarXStart + statusBarX, powerBarYStart + statusBarY, powerWidth, powerBarHeight);
                 
                  //Max point bar
-                g.setColor(Color.black);
+            
+                g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial", Font.BOLD , 26) {
                 });
-                g.drawString("Max Point: "+PointPlayer.getPlayerMaxPoint(), maxPointBarXStart + statusBarX, maxPointBarYStart + statusBarY);
+                g.drawString("Max Point: " + PointPlayer.getPlayerMaxPoint(), maxPointBarXStart + statusBarX, maxPointBarYStart + statusBarY);
                 
                 //point bar
-                g.setColor(Color.black);
+                g.setColor(Color.WHITE);
                 g.setFont(new Font("Arial", Font.BOLD , 26) {
                 });
                 g.drawString("Point: "+PointPlayer.getPlayerPoint(), pointBarXStart + statusBarX, pointBarYStart + statusBarY);

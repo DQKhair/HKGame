@@ -5,6 +5,7 @@
 package JFrameForm;
 
 import main.Game;
+import entities.PointPlayer;
 
 /**
  *
@@ -114,6 +115,7 @@ public class MenuGame extends javax.swing.JFrame {
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         // TODO add your handling code here:
 //        Game game = new Game()
+                PointPlayer.setPlayerId(playerId);
                 new Game(playerId,playerUsername);
                 this.dispose();
     }//GEN-LAST:event_jLabel3MouseClicked

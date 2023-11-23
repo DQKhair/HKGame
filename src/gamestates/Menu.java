@@ -18,7 +18,6 @@ public class Menu extends State implements Statemethods {
         private String namePlayer;
         private Font font;
 
-
 	public Menu(Game game) {
 		super(game);
 		loadButtons();
@@ -29,8 +28,8 @@ public class Menu extends State implements Statemethods {
         
         private void loadNamePlayer(String username)
         {
-            font = new Font("Arial", Font.BOLD , 26);
-            namePlayer =  "Hello "+username;
+            font = new Font("Arial", Font.ITALIC , 26);
+            namePlayer =  "Hello! "+username;
         }
         
 	private void loadBackground() {
@@ -59,7 +58,10 @@ public class Menu extends State implements Statemethods {
 		g.drawImage(backgroundImgPink, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
 		g.drawImage(backgroundImg, menuX, menuY, menuWidth, menuHeight, null);
                 g.setFont(font); // Set font
-                g.drawString(namePlayer, Game.GAME_WIDTH / 2 - 50, 40);
+                g.drawString(namePlayer,50, 50);
+                
+                g.setFont(new Font("Arial", Font.BOLD , 26));
+                g.drawString("Welcome to The King ",50, 100);
 
 		for (MenuButton mb : buttons)
 			mb.draw(g);
