@@ -25,7 +25,6 @@ public class Menu extends State implements Statemethods {
 		loadBackground();
                 loadNamePlayer(game.getPlayerName());
 		backgroundImgPink = LoadSave.GetSpriteAtlas(LoadSave.MENU_BACKGROUND_IMG);
-                
 	}
         
         private void loadNamePlayer(String username)

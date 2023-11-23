@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/main/MainClass.java</file>
-            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/JFrameForm/MenuGame.java</file>
-            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/main/Game.java</file>
-            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/JFrameForm/LoginPlayer.java</file>
+            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/entities/Player.java</file>
+            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/entities/Entity.java</file>
+            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/main/GamePanel.java</file>
             <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/gamestates/Menu.java</file>
+            <file>file:/D:/2023-2024/HK1/JavaPrograming/DoAn/TheKing/src/entities/Enemy.java</file>
         </group>
     </open-files>
 </project-private>

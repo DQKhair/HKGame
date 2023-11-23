@@ -28,6 +28,7 @@ public abstract class Entity {
 	protected int pushBackDir;
 	protected float pushDrawOffset;
 	protected int pushBackOffsetDir = UP;
+        
 
 	public Entity(float x, float y, int width, int height) {
 		this.x = x;
@@ -93,4 +94,5 @@ public abstract class Entity {
 		aniTick = 0;
 		aniIndex = 0;
 	}
+        
 }

@@ -131,7 +131,14 @@ public abstract class Enemy extends Entity {
 	public void hurt(int amount) {
 		currentHealth -= amount;
 		if (currentHealth <= 0)
+                {
+                        System.out.println("die");
+                        PointPlayer.setPlayerPoint(20);
 			newState(DEAD);
+                        //Xử lý cộng điểm
+                        
+                        //End xử lý cộng điểm
+                }
 		else {
 			newState(HIT);
 			if (walkDir == LEFT)
@@ -142,7 +149,7 @@ public abstract class Enemy extends Entity {
 			pushDrawOffset = 0;
 		}
 	}
-
+        
 	protected void checkPlayerHit(Rectangle2D.Float attackBox, Player player) {
 		if (attackBox.intersects(player.hitbox))
 			player.changeHealth(-GetEnemyDmg(enemyType), this);

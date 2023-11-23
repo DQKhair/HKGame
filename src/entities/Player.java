@@ -12,6 +12,7 @@ import java.awt.image.BufferedImage;
 
 import audio.AudioPlayer;
 import gamestates.Playing;
+import java.awt.Font;
 import main.Game;
 import utilz.LoadSave;
 
@@ -46,6 +47,12 @@ public class Player extends Entity {
 	private int powerBarHeight = (int) (2 * Game.SCALE);
 	private int powerBarXStart = (int) (44 * Game.SCALE);
 	private int powerBarYStart = (int) (34 * Game.SCALE);
+        
+        private int maxPointBarXStart = (int) (54 * Game.SCALE);
+	private int maxPointBarYStart = (int) (64 * Game.SCALE);
+        private int pointBarXStart = (int) (64 * Game.SCALE);
+	private int pointBarYStart = (int) (84 * Game.SCALE);
+        
 	private int powerWidth = powerBarWidth;
 	private int powerMaxValue = 200;
 	private int powerValue = powerMaxValue;
@@ -62,6 +69,8 @@ public class Player extends Entity {
 	private int powerAttackTick;
 	private int powerGrowSpeed = 15;
 	private int powerGrowTick;
+        
+        private PointPlayer pointPlayer;
 
 	public Player(float x, float y, int width, int height, Playing playing) {
 		super(x, y, width, height);
@@ -73,8 +82,11 @@ public class Player extends Entity {
 		loadAnimations();
 		initHitbox(20, 27);
 		initAttackBox();
+                
 	}
-
+        
+        
+        
 	public void setSpawn(Point spawn) {
 		this.x = spawn.x;
 		this.y = spawn.y;
@@ -105,6 +117,19 @@ public class Player extends Entity {
 					airSpeed = 0;
 				}
 			} else if (aniIndex == GetSpriteAmount(DEAD) - 1 && aniTick >= ANI_SPEED - 1) {
+                                
+                                //handle lưu dữ liệu điểm khi chết
+                                System.out.println("Update point");
+                                //handle reset point = 0 và add max point point
+                                int maxPoint = PointPlayer.getPlayerMaxPoint();
+                                int pointCurrent = PointPlayer.getPlayerPoint();
+                                if(pointCurrent>maxPoint)
+                                {
+                                    PointPlayer.setPlayerMaxPoint(pointCurrent);
+                                }
+                                PointPlayer.ResetPoint();
+                                //End handle lưu dữ liệu bản khi chết
+                            
 				playing.setGameOver(true);
 				playing.getGame().getAudioPlayer().stopSong();
 				playing.getGame().getAudioPlayer().playEffect(AudioPlayer.GAMEOVER);
@@ -236,7 +261,20 @@ public class Player extends Entity {
 		// Power Bar
 		g.setColor(Color.yellow);
 		g.fillRect(powerBarXStart + statusBarX, powerBarYStart + statusBarY, powerWidth, powerBarHeight);
-	}
+                
+                 //Max point bar
+                g.setColor(Color.black);
+                g.setFont(new Font("Arial", Font.BOLD , 26) {
+                });
+                g.drawString("Max Point: "+PointPlayer.getPlayerMaxPoint(), maxPointBarXStart + statusBarX, maxPointBarYStart + statusBarY);
+                
+                //point bar
+                g.setColor(Color.black);
+                g.setFont(new Font("Arial", Font.BOLD , 26) {
+                });
+                g.drawString("Point: "+PointPlayer.getPlayerPoint(), pointBarXStart + statusBarX, pointBarYStart + statusBarY);
+               
+        }
 
 	private void updateAnimationTick() {
 		aniTick++;
