@@ -1,10 +1,14 @@
 package gamestates;
 
+import Model.PlayerVM;
+import entities.PointPlayer;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.List;
 
 import main.Game;
 import utilz.LoadSave;
@@ -13,6 +17,10 @@ public class Credits extends State implements Statemethods {
 	private BufferedImage backgroundImg, creditsImg;
 	private int bgX, bgY, bgW, bgH;
 	private float bgYFloat;
+        
+        public List<PlayerVM> listNew;
+        
+        public int yListPoint = 200;
 
 	private ArrayList<ShowEntity> entitiesList;
 
@@ -25,6 +33,20 @@ public class Credits extends State implements Statemethods {
 		bgX = Game.GAME_WIDTH / 2 - bgW / 2;
 		bgY = Game.GAME_HEIGHT;
 		loadEntities();
+                listNew = new ArrayList<PlayerVM>();
+                List<PlayerVM> list = PointPlayer.GetListPointPlayer();
+                for(PlayerVM item : list)
+                {
+                       PlayerVM _playerVM = new PlayerVM();
+                      _playerVM.PlayerId = item.PlayerId;
+                      _playerVM.PlayerName = item.PlayerName;
+                      _playerVM.PlayerEmail = item.PlayerName;
+                      _playerVM.PlayerUsername = item.PlayerUsername;
+                      _playerVM.PointValue = item.PointValue;
+                      _playerVM.yListPoint = yListPoint;
+                      yListPoint =  _playerVM.yListPoint + 50;
+                      listNew.add(_playerVM);
+                }
 	}
 
 	private void loadEntities() {
@@ -44,7 +66,7 @@ public class Credits extends State implements Statemethods {
 
 	@Override
 	public void update() {
-		bgYFloat -= 0.2f;
+//		bgYFloat -= 0.2f;
 		for (ShowEntity se : entitiesList)
 			se.update();
 	}
@@ -52,8 +74,15 @@ public class Credits extends State implements Statemethods {
 	@Override
 	public void draw(Graphics g) {
 		g.drawImage(backgroundImg, 0, 0, Game.GAME_WIDTH, Game.GAME_HEIGHT, null);
-		g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), bgW, bgH, null);
-
+//		g.drawImage(creditsImg, bgX, (int) (bgY + bgYFloat), bgW, bgH, null);
+                g.setFont(new Font("Arial", Font.BOLD , 26));
+                g.drawString("List Top Point",Game.GAME_WIDTH / 2 - 50, 100);
+                
+                for(PlayerVM player : listNew)
+                {
+                    System.out.println("ID: " + player.getPlayerId() + ", Name: " + player.getPlayerName() + ", Email: " + player.getPlayerEmail() + ", Username: " + player.getPlayerUsername() + ", PointValue: " + player.getPointValue()+" YList "+player.getyListPoint());
+                       g.drawString("ID: " + player.getPlayerId() + ", Name: " + player.getPlayerName() + ", Email: " + player.getPlayerEmail() + ", Username: " + player.getPlayerUsername() + ", PointValue: " + player.getPointValue(),150, player.getyListPoint());
+                }
 		for (ShowEntity se : entitiesList)
 			se.draw(g);
 	}

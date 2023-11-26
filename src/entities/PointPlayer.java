@@ -4,9 +4,11 @@
  */
 package entities;
 
+import Model.PlayerVM;
 import main.MyConnection;
 import java.sql.*;
-import org.w3c.dom.ls.LSOutput;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -26,6 +28,34 @@ public class  PointPlayer {
     
     public static void setPlayerId(int playerIdSet) {
         playerId = playerIdSet;
+    }
+    
+    public static List<PlayerVM> GetListPointPlayer()
+    {
+        List<PlayerVM> playerVMs = new ArrayList<>();
+        MyConnection conn = new MyConnection();
+        PreparedStatement ps;
+        ResultSet rs;
+        String query = "Select a.PlayerId,a.PlayerName,a.PlayerUsername,a.PlayerEmail,b.pointValue from players a inner join userpoint b on a.playerId = b.playerId order by b.pointValue desc";
+        int playerIdDB = (int)getPlayerId();
+        try {
+            ps = conn.getConnection().prepareStatement(query);
+            rs = ps.executeQuery();
+            while(rs.next())
+            {
+                PlayerVM _playerVM = new PlayerVM();
+                _playerVM.PlayerId = rs.getInt("PlayerId");
+                _playerVM.PlayerName = rs.getString("PlayerName");
+                _playerVM.PlayerUsername = rs.getString("playerUsername");
+                _playerVM.PlayerEmail = rs.getString("PlayerEmail");
+                _playerVM.PointValue = rs.getInt("pointValue");
+                
+                playerVMs.add(_playerVM);
+            }
+        } catch (Exception ex) {
+            System.out.println("Error "+ex);
+        }
+         return playerVMs;
     }
     
     public static void GetInfoPlayerDB()
